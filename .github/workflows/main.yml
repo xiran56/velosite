@@ -8,7 +8,7 @@ on:
 
 jobs:
     update:
-        runs-on: ubuntu-lastest
+        runs-on: ubuntu-latest
         steps:
             - name: Update
               run: git subtree push --prefix dist origin gh-pages
