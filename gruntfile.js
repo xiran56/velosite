@@ -22,7 +22,7 @@ module.exports = function(grunt) {
 
     // Project configuration.
     grunt.initConfig({
-      pkg: grunt.file.readJSON('package.JSON'),  
+      pkg: grunt.file.readJSON('package.json'),  
       handlebars: {
           compile: {
               options: {
