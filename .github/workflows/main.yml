@@ -1,0 +1,43 @@
+name: Build and Deploy to GitHub Pages
+
+on:
+  push:
+    branches: [ master ]  # Trigger on pushes to master branch
+  workflow_dispatch:      # Allow manual triggers
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    
+    steps:
+      # Step 1: Checkout the repository
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Step 2: Set up Node.js
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      # Step 3: Install dependencies
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Install Grunt CLI if needed
+      - name: Install Grunt CLI
+        run: npm install -g grunt-cli
+
+      # Step 5: Build project with Grunt
+      - name: Build with Grunt
+        run: grunt  # Replace with your specific Grunt task if different
+
+      # Step 6: Deploy to gh-pages branch
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./dist  # Your Grunt build output directory
+          publish_branch: gh-pages  # Deploy to gh-pages branch
+          force_orphan: true  # Keep the gh-pages branch history clean
