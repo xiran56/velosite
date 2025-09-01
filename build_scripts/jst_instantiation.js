@@ -18,7 +18,7 @@ module.exports = function(jst_path, templates_data_path, output_dir) {
         if (!templates.hasOwnProperty(hbs_name))
             continue;
 
-        html_name = path.join(output_dir, hbs_name.substring(hbs_name.lastIndexOf('/')+1, hbs_name.length - 11) + '.html');
+        html_name = path.join(output_dir, hbs_name.substring(hbs_name.lastIndexOf('/')+1, hbs_name.length - 4) + '.html');
         html_string = templates[hbs_name](template_data);
         fs.writeFileSync(html_name, html_string, 'utf8');
     }

@@ -1,0 +1,15 @@
+<nav class="vl-nav">
+    <a href="/" class="vl-nav__site-name">velosite</a>
+    {{#each nav.categories}}
+        <div class="vl-nav-category">
+            <button class="vl-nav-category__button">
+                {{this.name}}<i class="fa fa-caret-down"></i>
+            </button>
+            <div class="vl-nav-category-articles">
+                {{#each this.articles}}
+                <a href="/{{this.page}}" class="vl-nav-category-articles__ref">{{this.name}}</a>
+                {{/each}}
+            </div>
+        </div>
+    {{/each}}
+</nav>

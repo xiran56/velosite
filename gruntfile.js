@@ -1,7 +1,7 @@
 
 module.exports = function(grunt) {
     const JST_PATH = 'build/templates.js'
-    const TEMPLATES_DATA_PATH = 'src/templates_data.json'
+    const TEMPLATES_DATA_PATH = 'src/site_hbs_data.json'
 
     var processhtml_files = {}
     var htmlmin_files = {}
@@ -10,10 +10,10 @@ module.exports = function(grunt) {
 
     files.forEach(function (file, i) {
         console.log(file)
-        if (!file.endsWith('.handlebars'))
+        if (!file.endsWith('.hbs'))
             return
 
-        const page = file.substring(0, file.length - 11)
+        const page = file.substring(0, file.length - 4)
         const toBeMinifiedName =  'dist/' + page + '.full.html'
 
         processhtml_files[toBeMinifiedName] = ['build/' + page + '.html']
@@ -30,7 +30,7 @@ module.exports = function(grunt) {
                   commonjs: true
               },
               files: {
-                  'build/templates.js': ['src/*.handlebars']
+                  'build/templates.js': ['src/*.hbs']
               },
           }
         },
@@ -43,7 +43,6 @@ module.exports = function(grunt) {
                  cwd: './src',
                  src: ['*.css'],
                  dest: 'build',
-                 ext: '.css',
                  expand: true
              }
          },
@@ -79,7 +78,7 @@ module.exports = function(grunt) {
              }
          },
 
-         clean: ['dist*//*.full.*', 'build/*']
+         clean: ['dist*//*.full.*', 'dist**//*.component.*', 'build/*']
 
     });
 
@@ -98,6 +97,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin','uglify', 'processhtml', 'htmlmin', 'clean']);
+    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin','uglify', 'processhtml', 'htmlmin'/*, 'clean'*/]);
     
 };
