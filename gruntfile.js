@@ -97,6 +97,6 @@ module.exports = function(grunt) {
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin','uglify', 'processhtml', 'htmlmin'/*, 'clean'*/]);
+    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin','uglify', 'processhtml', 'htmlmin', 'clean']);
     
 };
