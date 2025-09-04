@@ -1,0 +1,79 @@
+/*
+ * Ensure a better box-sizing model by using the universal
+ * selector `*` and setting it to inherit. We will then
+ * change the box-sizing property on the root element
+ * so other elements inherit from that when it is not
+ * set explicitly on a closer parent element.
+ */
+
+*,
+::before,
+::after {
+  box-sizing: inherit; 
+}
+
+/* 
+ * 1. Set the root box-sizing model that other elements
+ *    will inherit if it is not set on a closer parent.
+ * 2. Add a fallback-font stack that will work across
+ *    every browser and device in case your custom font
+ *    doesn't load, loads slowly, or doesn't have a glyph
+ *    for a specific character.
+ * 3. Set an accessible default font-size that will be set
+ *    according to user's browser settings (usually 16px).
+ */
+
+ 
+html {
+  box-sizing: border-box;
+  font-family:
+    /* Newer browsers */
+    system-ui,
+    /* Safari for OS X and iOS (San Francisco) */
+    -apple-system,
+    /* Chrome < 56 for OS X (San Francisco) */
+    BlinkMacSystemFont,
+    /* Windows */
+    'Segoe UI',
+    /* Android */
+    Roboto,
+    /* Basic web fallback */
+    'Helvetica Neue',
+    Helvetica,
+    Arial,
+    sans-serif,
+    /* Emoji fonts */
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji';
+  font-size: 1em;
+}
+
+/* 
+ * Add smooth scrolling for users who do not turn it off.
+ *  This is how you should structure media queries
+ */
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* 
+ * You wisely removed the default margin from the body,
+ * but default padding is already 0 so setting that is
+ * is not necessary. I like to set the min-height of the
+ * body so that it always takes up the entire viewport.
+ * Use the new `dvh` unit which take into account mobile
+ * browser address and tab bars. Use `vh` as a fallback.
+ */
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0;
+  font-family: Hoefler Text;
+  background-color: rgb(233, 245, 248);
+}

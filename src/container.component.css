@@ -1,0 +1,4 @@
+.vl-container {
+  max-width: min(96%, 900px); 
+  margin: 0 auto;
+}
