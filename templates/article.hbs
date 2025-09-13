@@ -1,32 +1,25 @@
 <!DOCTYPE html>
 
-<html>
+<html lang="ru">
 <head>
-    <meta lang="ru" charset="utf-8">
-    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
     <!-- Open Graph разметка -->
 
     <meta property="og:type" content="article">
-    <meta property="og:article:published_time" content="{{published_time}}">
-
     <meta property="og:title" content="{{name}}">
 
     <title>{{name}}</title>
         
     <!-- build:css inline -->
-    <link rel="stylesheet" href="base.css">
-    <link rel="stylesheet" href="container.component.css">
-    <link rel="stylesheet" href="navbar.component.css">
-    <link rel="stylesheet" href="footer.component.css">
-    <link rel="stylesheet" href="{{page}}.css">
+    <link rel="stylesheet" href="style.css">
     <!-- /build -->
 </head>
 
 <body>
-    <!-- build:include navbar.component.html --><!-- /build -->
+    <!-- build:include header.component.html --><!-- /build -->
 
     <!-- Ваша разметка здесь... -->
-
-    <!-- build:include footer.component.html --><!-- /build -->
 </body>
 </html>

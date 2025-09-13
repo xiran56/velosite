@@ -5,19 +5,21 @@ module.exports = function(grunt) {
 
     var processhtml_files = {}
     var htmlmin_files = {}
+    var uglifyjs_files = {}
     var fs = require('fs')
     var files = fs.readdirSync('src')
 
     files.forEach(function (file, i) {
         console.log(file)
-        if (!file.endsWith('.hbs'))
-            return
+        if (file.endsWith('.hbs')) {
+            const page = file.substring(0, file.length - 4)
+            const toBeMinifiedName =  'dist/' + page + '.full.html'
 
-        const page = file.substring(0, file.length - 4)
-        const toBeMinifiedName =  'dist/' + page + '.full.html'
-
-        processhtml_files[toBeMinifiedName] = ['build/' + page + '.html']
-        htmlmin_files['dist/' + page + '.html'] = toBeMinifiedName
+            processhtml_files[toBeMinifiedName] = ['build/' + page + '.html']
+            htmlmin_files['dist/' + page + '.html'] = toBeMinifiedName
+        } else if (file.endsWith('.js')) {
+            uglifyjs_files['build/' + file] = 'src/' + file
+        }
     })
 
     // Project configuration.
@@ -37,9 +39,6 @@ module.exports = function(grunt) {
 
         cssmin: {
              minify: {
-                 options: {
-                     banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-                 },
                  cwd: './src',
                  src: ['*.css'],
                  dest: 'build',
@@ -47,13 +46,8 @@ module.exports = function(grunt) {
              }
          },
          uglify: {
-             options: {
-                 banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-             },
-             build: {
-                 src: ['src/*.js'],
-                 dest: 'build/',
-                 ext: '.js'
+             my_target: {
+                files: uglifyjs_files
              }
          },
          processhtml: {
@@ -78,6 +72,16 @@ module.exports = function(grunt) {
              }
          },
 
+        concat: {
+            options: {
+                separator: '',
+            },
+            dist: {
+                src: ['build/*.css'],
+                dest: 'build/style.css'
+            }
+        },
+
          clean: ['dist*//*.full.*', 'dist**//*.component.*', 'build/*']
 
     });
@@ -91,12 +95,13 @@ module.exports = function(grunt) {
         jstInstantiate(JST_PATH, TEMPLATES_DATA_PATH, 'build')
     })
 
+    grunt.loadNpmTasks('grunt-contrib-concat');
     grunt.loadNpmTasks('grunt-contrib-htmlmin');
     grunt.loadNpmTasks('grunt-contrib-uglify');
     grunt.loadNpmTasks('grunt-contrib-cssmin');
     grunt.loadNpmTasks('grunt-processhtml');
     grunt.loadNpmTasks('grunt-contrib-clean');
 
-    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin','uglify', 'processhtml', 'htmlmin', 'clean']);
+    grunt.registerTask('default', ['handlebars', 'jst_instantiation', 'cssmin', 'concat', 'uglify', 'processhtml', 'htmlmin']);
     
 };
